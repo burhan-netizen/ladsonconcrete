@@ -16,10 +16,24 @@
 <meta name="description" content="Ladson Concrete pours driveways, driveway extensions, patios, sidewalks, steps and slabs across Jacksonville and Northeast Florida. Owner-run by Gage Ladson. Free estimates. Call or text (904) 631-5038.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#0f1417">
+<link rel="canonical" href="https://ladsonconcrete.vercel.app/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ladson Concrete">
+<meta property="og:url" content="https://ladsonconcrete.vercel.app/">
 <meta property="og:title" content="Ladson Concrete | Jacksonville Concrete Contractor">
-<meta property="og:description" content="Driveways, patios, sidewalks and slabs poured right the first time. Free estimates across Northeast Florida.">
-<meta property="og:image" content="assets/hero.webp">
-<link rel="icon" href="assets/logo.png">
+<meta property="og:description" content="Driveways, patios, sidewalks and slabs poured right the first time. Free estimates across Jacksonville and North Florida. Call or text (904) 631-5038.">
+<meta property="og:image" content="https://ladsonconcrete.vercel.app/og.jpg">
+<meta property="og:image:secure_url" content="https://ladsonconcrete.vercel.app/og.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ladson Concrete: concrete poured right, the first time. Free estimates, (904) 631-5038.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ladson Concrete | Jacksonville Concrete Contractor">
+<meta name="twitter:description" content="Driveways, patios, sidewalks and slabs poured right the first time. Free estimates across North Florida.">
+<meta name="twitter:image" content="https://ladsonconcrete.vercel.app/og.jpg">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap" rel="stylesheet">
@@ -420,6 +434,14 @@ footer a:hover{color:var(--teal)}
   *,*::before,*::after{animation:none!important;transition:none!important}
   .js .rv{opacity:1;transform:none}
 }
+/* mobile fixes */
+html,body{overflow-x:hidden}
+@supports (overflow:clip){html,body{overflow-x:clip}}
+.stats-grid>*{min-width:0}
+.phone video::-webkit-media-controls-start-playback-button{display:none!important;-webkit-appearance:none}
+.phone video::-webkit-media-controls{display:none!important}
+.phone .reel-fb{width:100%;height:100%;object-fit:cover}
+@media (max-width:680px){.stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.stat b{font-size:clamp(28px,8.4vw,36px)}.stat b sup{font-size:.42em;margin-left:3px}}
 /* protection */
 body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 input,textarea,select{-webkit-user-select:text;user-select:text}
@@ -636,8 +658,8 @@ input,textarea,select{-webkit-user-select:text;user-select:text}
       <p class="lead rv d2">No stock photos here. Every clip and photo on this site is a real Ladson Concrete job, from Callahan to the shops out in the country.</p>
       <a class="btn btn-dark rv d3" href="#quote" style="margin-top:28px">I Want Results Like This</a>
     </div>
-    <div class="phone rv d1"><video src="assets/reel-steps.mp4" poster="assets/reel-steps.jpg" muted loop playsinline autoplay preload="metadata"></video><span class="ptag"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>Callahan, FL</span><div class="pcap"><b>Front steps</b><span>Stairs of your dreams? We can make it happen.</span></div></div>
-    <div class="phone rv d2"><video src="assets/reel-apron.mp4" poster="assets/reel-apron.jpg" muted loop playsinline autoplay preload="metadata"></video><span class="ptag"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>North Florida</span><div class="pcap"><b>Shop apron</b><span>Big, flat and built for heavy trucks.</span></div></div>
+    <div class="phone rv d1"><video src="assets/reel-steps.mp4" poster="assets/reel-steps.jpg" data-fallback="assets/reel-steps.webp" muted loop playsinline webkit-playsinline autoplay preload="auto" disablepictureinpicture disableremoteplayback></video><span class="ptag"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>Callahan, FL</span><div class="pcap"><b>Front steps</b><span>Stairs of your dreams? We can make it happen.</span></div></div>
+    <div class="phone rv d2"><video src="assets/reel-apron.mp4" poster="assets/reel-apron.jpg" data-fallback="assets/reel-apron.webp" muted loop playsinline webkit-playsinline autoplay preload="auto" disablepictureinpicture disableremoteplayback></video><span class="ptag"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>North Florida</span><div class="pcap"><b>Shop apron</b><span>Big, flat and built for heavy trucks.</span></div></div>
   </div>
 </section>
 
@@ -869,6 +891,18 @@ document.documentElement.classList.add('js');
 
   // faq
   document.querySelectorAll('.qa button').forEach(b=>b.addEventListener('click',()=>{const qa=b.parentElement,a=qa.querySelector('.ans'),o=qa.classList.toggle('open');b.setAttribute('aria-expanded',o);a.style.maxHeight=o?a.scrollHeight+'px':0}));
+
+
+  // reels: force muted inline autoplay, fall back to animated image if the phone blocks video (e.g. Low Power Mode)
+  document.querySelectorAll('.phone video').forEach(v=>{
+    v.muted=true;v.defaultMuted=true;v.playsInline=true;v.loop=true;v.setAttribute('muted','');
+    let swapped=false;
+    const fallback=()=>{if(swapped)return;swapped=true;const img=new Image();img.src=v.dataset.fallback;img.alt='';img.className='reel-fb';img.draggable=false;v.replaceWith(img)};
+    const play=()=>{if(swapped)return;const pr=v.play();if(pr&&pr.catch)pr.catch(e=>{if(e&&e.name==='NotAllowedError')fallback()})};
+    v.addEventListener('pause',()=>{if(!document.hidden&&v.dataset.vis==='1')play()});
+    new IntersectionObserver(es=>es.forEach(e=>{v.dataset.vis=e.isIntersecting?'1':'0';if(e.isIntersecting)play()}),{threshold:.2}).observe(v);
+    ['touchstart','click','scroll'].forEach(t=>addEventListener(t,play,{once:true,passive:true}));
+  });
 
   // protect images
   document.addEventListener('contextmenu',e=>{if(e.target.closest('img,video'))e.preventDefault()});
