@@ -240,7 +240,15 @@ header.site.scrolled{box-shadow:0 10px 30px -18px rgba(0,0,0,.35)}
 .gitem:hover img{transform:scale(1.05)}
 .gitem figcaption{position:absolute;left:10px;bottom:10px;right:10px;color:#fff;font-size:13px;font-weight:700;background:rgba(10,14,17,.7);backdrop-filter:blur(4px);padding:6px 11px;border-radius:999px;width:max-content;max-width:calc(100% - 20px);opacity:0;transform:translateY(6px);transition:all .3s}
 .gitem:hover figcaption{opacity:1;transform:none}
-.gitem.hide{display:none}
+.gitem figcaption small{display:block;font-size:10.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#7fe3f1;margin-bottom:1px}
+.gitem figcaption{border-radius:12px;padding:7px 12px}
+@media (hover:none){.gitem figcaption{opacity:1;transform:none}}
+.gitem.hide,.gitem.later{display:none}
+#work .filters{margin-top:26px}
+.filters button .n{display:inline-block;margin-left:7px;font-size:12px;font-weight:700;opacity:.55}
+.filters button.on .n{opacity:.8}
+.gmore{display:flex;justify-content:center;margin-top:26px}
+.gmore[hidden]{display:none}
 .lb{position:fixed;inset:0;background:rgba(6,9,11,.94);z-index:200;display:none;align-items:center;justify-content:center;padding:30px}
 .lb.on{display:flex}
 .lb img{max-height:86vh;max-width:92vw;border-radius:12px;width:auto}
@@ -337,6 +345,19 @@ header.site.scrolled{box-shadow:0 10px 30px -18px rgba(0,0,0,.35)}
 .form-card h3{font-size:28px;text-transform:uppercase;font-weight:850}
 .form-card .fsub{color:var(--muted);font-size:15px;margin:6px 0 22px}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.vh{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.opt{font-weight:500;opacity:.6}
+.upload{display:flex;align-items:center;gap:12px;border:1.5px dashed #c9d1d3;border-radius:14px;padding:13px 15px;cursor:pointer;background:#fbfcfc;transition:border-color .2s}
+.upload:hover{border-color:var(--ink)}
+.upload svg{width:26px;height:26px;flex:none;color:#20b9cf}
+.upload b{display:block;font-size:15px}.upload small{display:block;font-size:13px;opacity:.7;font-weight:500}
+.thumbs{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.thumbs:empty{display:none}
+.thumbs span{position:relative;width:62px;height:62px;border-radius:10px;overflow:hidden;background:#eee}
+.thumbs img{width:100%;height:100%;object-fit:cover}
+.thumbs button{position:absolute;top:3px;right:3px;width:20px;height:20px;border-radius:50%;border:0;background:rgba(0,0,0,.65);color:#fff;font-size:12px;line-height:20px;cursor:pointer;padding:0}
+.ferr{color:#c0392b;font-weight:650;font-size:14px;margin:4px 0 10px}
+button[disabled]{opacity:.6;cursor:wait}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chips label{cursor:pointer;position:relative}
 .chips input{position:absolute;left:0;top:0;width:1px;height:1px;margin:0;opacity:0;pointer-events:none}
@@ -419,6 +440,8 @@ footer a:hover{color:var(--teal)}
   .phone{border-width:5px;border-radius:24px}
   .gallery{columns:2 140px;column-gap:10px}
   .gitem{margin-bottom:10px;border-radius:12px}
+  .gitem figcaption{left:7px;bottom:7px;max-width:calc(100% - 14px);font-size:11.5px;padding:5px 9px;line-height:1.25}
+  .gitem figcaption small{font-size:9px}
   .row2{grid-template-columns:1fr}
   .form-card{padding:24px}
   .map{height:340px}
@@ -500,10 +523,10 @@ input,textarea,select{-webkit-user-select:text;user-select:text}
     </div>
 
     <div class="qcard rv d2" id="hero-quote">
-      <h2>Get your free estimate</h2>
-      <p class="qsub">Takes about 30 seconds. Gage gets back to you fast.</p>
+      <h2>Request a free estimate</h2>
+      <p class="qsub">Tell us about the job. Gage looks over every request himself and calls or texts you back.</p>
       <div class="qsteps"><i class="on"></i><i></i><i></i></div>
-      <form class="qform" novalidate>
+      <form class="qform" novalidate><input type="text" name="company" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
         <div class="qpane on" data-step="1">
           <div class="field"><label>What are we pouring?</label></div>
           <div class="tiles">
@@ -520,22 +543,23 @@ input,textarea,select{-webkit-user-select:text;user-select:text}
           <div class="field"><label for="hq-size">Rough size</label>
             <select id="hq-size" name="size"><option>Not sure yet</option><option>Small (under 300 sq ft)</option><option>Medium (300 to 1,000 sq ft)</option><option>Large (1,000 to 4,000 sq ft)</option><option>Huge (4,000+ sq ft)</option></select></div>
           <div class="field"><label for="hq-town">Where's the job?</label><input id="hq-town" name="town" placeholder="Town or ZIP, e.g. Callahan or 32218"></div>
+          <div class="field"><label for="hq-msg">Anything Gage should know? <span class="opt">(optional)</span></label><textarea id="hq-msg" name="msg" rows="2" placeholder="e.g. Old driveway needs tearing out first"></textarea></div>
           <button type="button" class="btn btn-dark qnext">Continue</button>
           <button type="button" class="qback">Back</button>
         </div>
         <div class="qpane" data-step="3">
           <div class="field"><label for="hq-name">Your name</label><input id="hq-name" name="name" autocomplete="name" placeholder="First name" required></div>
           <div class="field"><label for="hq-phone">Best number to reach you</label><input id="hq-phone" name="phone" type="tel" autocomplete="tel" placeholder="(904) 000-0000" required></div>
-          <button type="submit" class="btn btn-teal">Get My Free Estimate</button>
+          <button type="submit" class="btn btn-teal">Send My Request</button>
           <button type="button" class="qback">Back</button>
         </div>
         <div class="qpane" data-step="done">
           <div class="done"><div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
             <h3>You're on the list<span class="qname"></span>!</h3>
-            <p>Gage will call or text you back to set up your free estimate. Want to speed things up? Text a photo of the area to <a href="sms:+19046315038"><b>(904) 631-5038</b></a>.</p></div>
+            <p>Gage has your details and will call or text you to set up a free on-site estimate. Got photos of the area? Text them to <a href="sms:+19046315038"><b>(904) 631-5038</b></a>.</p></div>
         </div>
       </form>
-      <div class="qfoot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>No spam. No obligation. Just a straight price.</div>
+      <div class="qfoot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>No spam. No obligation. Every job is priced on site, in person.</div>
     </div>
   </div>
 </section>
@@ -627,29 +651,64 @@ input,textarea,select{-webkit-user-select:text;user-select:text}
 <section class="pad" id="work">
   <div class="wrap">
     <div class="sec-head">
-      <div><span class="eyebrow rv">Recent pours</span><h2 class="h2 rv d1">Been busy, <em>busy!</em></h2><p class="lead rv d2">Real jobs we've knocked out around Jacksonville and North Florida. Tap any photo to see it up close.</p></div>
-      <div class="filters rv" role="tablist">
-        <button class="on" data-f="all">All</button><button data-f="drive">Driveways</button><button data-f="patio">Patios</button><button data-f="walk">Walkways</button><button data-f="slab">Slabs</button><button data-f="comm">Commercial</button>
-      </div>
+      <div><span class="eyebrow rv">Recent pours</span><h2 class="h2 rv d1">Been busy, <em>busy!</em></h2><p class="lead rv d2">50 real jobs Gage and the crew have poured around Jacksonville and North Florida. Pick a type of job, then tap any photo to see it up close.</p></div>
+    </div>
+    <div class="filters rv" role="tablist" aria-label="Filter projects">
+      <button class="on" data-f="all">All</button><button data-f="drive">Driveways</button><button data-f="patio">Patios &amp; pool decks</button><button data-f="walk">Walkways &amp; sidewalks</button><button data-f="barn">Barns &amp; shops</button><button data-f="slab">Slabs &amp; pads</button><button data-f="comm">Commercial</button><button data-f="crew">Crew at work</button>
     </div>
     <div class="gallery">
-      <figure class="gitem rv" data-c="drive"><img src="assets/drive-narrow.webp" alt="Driveway extension with cones" loading="lazy"><figcaption>Driveway replacement</figcaption></figure>
-      <figure class="gitem rv" data-c="slab"><img src="assets/shop-apron.webp" alt="Concrete apron around a metal garage" loading="lazy"><figcaption>Garage apron</figcaption></figure>
-      <figure class="gitem rv" data-c="patio"><img src="assets/pool-deck.webp" alt="Concrete pool deck behind a white farmhouse" loading="lazy"><figcaption>Pool deck</figcaption></figure>
-      <figure class="gitem rv" data-c="drive"><img src="assets/drive-brick.webp" alt="Wide driveway in front of a brick home" loading="lazy"><figcaption>Two-car driveway</figcaption></figure>
-      <figure class="gitem rv" data-c="comm walk"><img src="assets/comm-sidewalk.webp" alt="Commercial sidewalk along a warehouse wall" loading="lazy"><figcaption>Commercial sidewalk</figcaption></figure>
-      <figure class="gitem rv" data-c="slab"><img src="assets/pole-barn-wide.webp" alt="Slab under a wide pole barn" loading="lazy"><figcaption>Pole barn slab</figcaption></figure>
-      <figure class="gitem rv" data-c="drive"><img src="assets/drive-cones.webp" alt="New driveway with caution tape in front of a two-story home" loading="lazy"><figcaption>New driveway</figcaption></figure>
-      <figure class="gitem rv" data-c="patio"><img src="assets/patio-ext.webp" alt="Patio extension off a covered back porch" loading="lazy"><figcaption>Patio extension</figcaption></figure>
-      <figure class="gitem rv" data-c="comm"><img src="assets/warehouse-floor.webp" alt="New warehouse floor" loading="lazy"><figcaption>Warehouse floor</figcaption></figure>
-      <figure class="gitem rv" data-c="drive"><img src="assets/apron-gravel.webp" alt="Concrete driveway apron with gravel drive" loading="lazy"><figcaption>Driveway apron</figcaption></figure>
-      <figure class="gitem rv" data-c="walk"><img src="assets/walkway-curve.webp" alt="Curved walkway to front porch" loading="lazy"><figcaption>Curved walkway</figcaption></figure>
-      <figure class="gitem rv" data-c="patio"><img src="assets/stamped-patio.webp" alt="Stamped patio" loading="lazy"><figcaption>Stamped patio</figcaption></figure>
-      <figure class="gitem rv" data-c="slab"><img src="assets/shop-apron2.webp" alt="Concrete drive to a metal shop" loading="lazy"><figcaption>Shop drive</figcaption></figure>
-      <figure class="gitem rv" data-c="comm"><img src="assets/commercial-pad.webp" alt="Commercial pad" loading="lazy"><figcaption>Commercial pad</figcaption></figure>
-      <figure class="gitem rv" data-c="slab"><img src="assets/pole-barn.webp" alt="Pole barn slab" loading="lazy"><figcaption>Pole barn slab</figcaption></figure>
-      <figure class="gitem rv" data-c="drive"><img src="assets/hero.webp" alt="Driveway in front of brick home" loading="lazy"><figcaption>Full driveway</figcaption></figure>
+      <figure class="gitem rv" data-c="drive"><img src="assets/work/gated-entrance-driveway-sunset-sm.webp" data-full="assets/work/gated-entrance-driveway-sunset.webp" width="720" height="960" alt="Gated entrance drive: concrete driveway poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Driveway</small>Gated entrance drive</figcaption></figure>
+      <figure class="gitem rv" data-c="patio"><img src="assets/work/stamped-red-patio-sunset-sm.webp" data-full="assets/work/stamped-red-patio-sunset.webp" width="720" height="970" alt="Stamped and stained patio: concrete patio poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Patio</small>Stamped and stained patio</figcaption></figure>
+      <figure class="gitem rv" data-c="barn"><img src="assets/work/steel-shop-apron-flag-sm.webp" data-full="assets/work/steel-shop-apron-flag.webp" width="526" height="701" alt="Steel shop apron: concrete slab for a barn or shop poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Barn & shop</small>Steel shop apron</figcaption></figure>
+      <figure class="gitem rv" data-c="walk"><img src="assets/work/curved-walkway-live-oaks-sm.webp" data-full="assets/work/curved-walkway-live-oaks.webp" width="619" height="1100" alt="Curved walkway: concrete walkway poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Walkway</small>Curved walkway</figcaption></figure>
+      <figure class="gitem rv" data-c="drive"><img src="assets/work/new-build-driveway-farmhouse-sm.webp" data-full="assets/work/new-build-driveway-farmhouse.webp" width="720" height="960" alt="New-build driveway: concrete driveway poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Driveway</small>New-build driveway</figcaption></figure>
+      <figure class="gitem rv" data-c="patio"><img src="assets/work/pool-deck-two-story-home-sm.webp" data-full="assets/work/pool-deck-two-story-home.webp" width="720" height="960" alt="Pool deck: concrete patio poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Patio</small>Pool deck</figcaption></figure>
+      <figure class="gitem rv" data-c="barn"><img src="assets/work/large-pole-barn-pavilion-slab-sm.webp" data-full="assets/work/large-pole-barn-pavilion-slab.webp" width="720" height="540" alt="Large pole barn slab: concrete slab for a barn or shop poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Barn & shop</small>Large pole barn slab</figcaption></figure>
+      <figure class="gitem rv" data-c="walk comm"><img src="assets/work/commercial-sidewalk-warehouse-sm.webp" data-full="assets/work/commercial-sidewalk-warehouse.webp" width="619" height="1100" alt="Commercial sidewalk: concrete walkway poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Walkway</small>Commercial sidewalk</figcaption></figure>
+      <figure class="gitem rv" data-c="drive"><img src="assets/work/curved-driveway-brick-ranch-sm.webp" data-full="assets/work/curved-driveway-brick-ranch.webp" width="720" height="960" alt="Curved driveway: concrete driveway poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Driveway</small>Curved driveway</figcaption></figure>
+      <figure class="gitem rv" data-c="comm"><img src="assets/work/steel-fabrication-shop-floor-sm.webp" data-full="assets/work/steel-fabrication-shop-floor.webp" width="720" height="958" alt="Steel fab shop floor: commercial concrete poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Commercial</small>Steel fab shop floor</figcaption></figure>
+      <figure class="gitem rv" data-c="patio"><img src="assets/work/covered-porch-patio-extension-sm.webp" data-full="assets/work/covered-porch-patio-extension.webp" width="720" height="960" alt="Patio extension off covered porch: concrete patio poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Patio</small>Patio extension off covered porch</figcaption></figure>
+      <figure class="gitem rv" data-c="drive crew"><img src="assets/work/driveway-extension-crew-sm.webp" data-full="assets/work/driveway-extension-crew.webp" width="720" height="960" alt="Driveway extension, crew at work: concrete driveway poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Driveway</small>Driveway extension, crew at work</figcaption></figure>
+      <figure class="gitem rv" data-c="drive"><img src="assets/work/new-home-driveway-callahan-sm.webp" data-full="assets/work/new-home-driveway-callahan.webp" width="720" height="960" alt="New home driveway: concrete driveway poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Driveway</small>New home driveway</figcaption></figure>
+      <figure class="gitem rv" data-c="drive"><img src="assets/work/wide-driveway-two-garages-sm.webp" data-full="assets/work/wide-driveway-two-garages.webp" width="720" height="540" alt="Wide driveway replacement: concrete driveway poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Driveway</small>Wide driveway replacement</figcaption></figure>
+      <figure class="gitem rv" data-c="drive"><img src="assets/work/shaded-driveway-replacement-sm.webp" data-full="assets/work/shaded-driveway-replacement.webp" width="720" height="532" alt="Driveway replacement: concrete driveway poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Driveway</small>Driveway replacement</figcaption></figure>
+      <figure class="gitem rv" data-c="drive"><img src="assets/work/curved-driveway-connector-sm.webp" data-full="assets/work/curved-driveway-connector.webp" width="720" height="960" alt="Curved drive connector: concrete driveway poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Driveway</small>Curved drive connector</figcaption></figure>
+      <figure class="gitem rv" data-c="drive"><img src="assets/work/curved-driveway-carport-sm.webp" data-full="assets/work/curved-driveway-carport.webp" width="720" height="960" alt="Curved drive to carport: concrete driveway poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Driveway</small>Curved drive to carport</figcaption></figure>
+      <figure class="gitem rv" data-c="drive"><img src="assets/work/long-driveway-fenced-lot-sm.webp" data-full="assets/work/long-driveway-fenced-lot.webp" width="619" height="1100" alt="Long driveway, fenced lot: concrete driveway poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Driveway</small>Long driveway, fenced lot</figcaption></figure>
+      <figure class="gitem rv" data-c="drive"><img src="assets/work/fresh-driveway-cones-sm.webp" data-full="assets/work/fresh-driveway-cones.webp" width="720" height="960" alt="Fresh driveway pour: concrete driveway poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Driveway</small>Fresh driveway pour</figcaption></figure>
+      <figure class="gitem rv" data-c="drive"><img src="assets/work/driveway-replacement-ranch-sm.webp" data-full="assets/work/driveway-replacement-ranch.webp" width="720" height="961" alt="Driveway replacement: concrete driveway poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Driveway</small>Driveway replacement</figcaption></figure>
+      <figure class="gitem rv" data-c="drive"><img src="assets/work/driveway-apron-cottage-sm.webp" data-full="assets/work/driveway-apron-cottage.webp" width="720" height="800" alt="Driveway and apron: concrete driveway poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Driveway</small>Driveway and apron</figcaption></figure>
+      <figure class="gitem rv" data-c="drive"><img src="assets/work/driveway-extension-curbside-sm.webp" data-full="assets/work/driveway-extension-curbside.webp" width="720" height="960" alt="Driveway extension: concrete driveway poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Driveway</small>Driveway extension</figcaption></figure>
+      <figure class="gitem rv" data-c="drive"><img src="assets/work/curb-apron-driveway-sm.webp" data-full="assets/work/curb-apron-driveway.webp" width="720" height="535" alt="Curb-to-garage driveway: concrete driveway poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Driveway</small>Curb-to-garage driveway</figcaption></figure>
+      <figure class="gitem rv" data-c="drive"><img src="assets/work/broom-finish-driveway-sm.webp" data-full="assets/work/broom-finish-driveway.webp" width="720" height="960" alt="Broom finish driveway: concrete driveway poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Driveway</small>Broom finish driveway</figcaption></figure>
+      <figure class="gitem rv" data-c="drive walk"><img src="assets/work/side-drive-widening-sm.webp" data-full="assets/work/side-drive-widening.webp" width="720" height="494" alt="Side drive widening: concrete driveway poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Driveway</small>Side drive widening</figcaption></figure>
+      <figure class="gitem rv" data-c="patio"><img src="assets/work/stamped-red-patio-sm.webp" data-full="assets/work/stamped-red-patio.webp" width="720" height="970" alt="Stamped patio, sealed: concrete patio poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Patio</small>Stamped patio, sealed</figcaption></figure>
+      <figure class="gitem rv" data-c="patio"><img src="assets/work/pool-deck-farmhouse-sm.webp" data-full="assets/work/pool-deck-farmhouse.webp" width="720" height="970" alt="Pool deck: concrete patio poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Patio</small>Pool deck</figcaption></figure>
+      <figure class="gitem rv" data-c="patio"><img src="assets/work/back-patio-extension-brick-home-sm.webp" data-full="assets/work/back-patio-extension-brick-home.webp" width="720" height="970" alt="Back patio extension: concrete patio poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Patio</small>Back patio extension</figcaption></figure>
+      <figure class="gitem rv" data-c="patio"><img src="assets/work/back-patio-slab-sm.webp" data-full="assets/work/back-patio-slab.webp" width="720" height="398" alt="Back patio slab: concrete patio poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Patio</small>Back patio slab</figcaption></figure>
+      <figure class="gitem rv" data-c="patio"><img src="assets/work/porch-patio-addition-sm.webp" data-full="assets/work/porch-patio-addition.webp" width="720" height="970" alt="Porch patio addition: concrete patio poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Patio</small>Porch patio addition</figcaption></figure>
+      <figure class="gitem rv" data-c="patio"><img src="assets/work/townhome-patio-slab-sm.webp" data-full="assets/work/townhome-patio-slab.webp" width="720" height="540" alt="Townhome patio slab: concrete patio poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Patio</small>Townhome patio slab</figcaption></figure>
+      <figure class="gitem rv" data-c="patio walk"><img src="assets/work/screen-porch-side-slab-sm.webp" data-full="assets/work/screen-porch-side-slab.webp" width="720" height="960" alt="Side slab by screen porch: concrete patio poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Patio</small>Side slab by screen porch</figcaption></figure>
+      <figure class="gitem rv" data-c="walk"><img src="assets/work/garage-walkway-sm.webp" data-full="assets/work/garage-walkway.webp" width="720" height="970" alt="Garage walkway: concrete walkway poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Walkway</small>Garage walkway</figcaption></figure>
+      <figure class="gitem rv" data-c="walk comm"><img src="assets/work/roadside-public-sidewalk-sm.webp" data-full="assets/work/roadside-public-sidewalk.webp" width="619" height="1100" alt="Public sidewalk: concrete walkway poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Walkway</small>Public sidewalk</figcaption></figure>
+      <figure class="gitem rv" data-c="walk comm"><img src="assets/work/commercial-walkway-exposed-edge-sm.webp" data-full="assets/work/commercial-walkway-exposed-edge.webp" width="720" height="960" alt="Commercial walkway: concrete walkway poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Walkway</small>Commercial walkway</figcaption></figure>
+      <figure class="gitem rv" data-c="barn"><img src="assets/work/pole-barn-slab-sm.webp" data-full="assets/work/pole-barn-slab.webp" width="619" height="1100" alt="Pole barn slab: concrete slab for a barn or shop poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Barn & shop</small>Pole barn slab</figcaption></figure>
+      <figure class="gitem rv" data-c="barn"><img src="assets/work/wood-carport-slab-sm.webp" data-full="assets/work/wood-carport-slab.webp" width="720" height="960" alt="Carport slab: concrete slab for a barn or shop poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Barn & shop</small>Carport slab</figcaption></figure>
+      <figure class="gitem rv" data-c="barn"><img src="assets/work/equipment-barn-floor-sm.webp" data-full="assets/work/equipment-barn-floor.webp" width="720" height="960" alt="Equipment barn floor: concrete slab for a barn or shop poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Barn & shop</small>Equipment barn floor</figcaption></figure>
+      <figure class="gitem rv" data-c="barn"><img src="assets/work/steel-shop-apron-sm.webp" data-full="assets/work/steel-shop-apron.webp" width="443" height="590" alt="Steel shop apron: concrete slab for a barn or shop poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Barn & shop</small>Steel shop apron</figcaption></figure>
+      <figure class="gitem rv" data-c="barn crew"><img src="assets/work/shop-apron-walkway-crew-sm.webp" data-full="assets/work/shop-apron-walkway-crew.webp" width="720" height="960" alt="Shop apron, crew at work: concrete slab for a barn or shop poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Barn & shop</small>Shop apron, crew at work</figcaption></figure>
+      <figure class="gitem rv" data-c="barn"><img src="assets/work/garage-apron-wooded-lot-sm.webp" data-full="assets/work/garage-apron-wooded-lot.webp" width="720" height="971" alt="Garage apron: concrete slab for a barn or shop poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Barn & shop</small>Garage apron</figcaption></figure>
+      <figure class="gitem rv" data-c="slab"><img src="assets/work/shed-slab-open-field-sm.webp" data-full="assets/work/shed-slab-open-field.webp" width="720" height="540" alt="Shed slab: concrete slab poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Slab</small>Shed slab</figcaption></figure>
+      <figure class="gitem rv" data-c="slab"><img src="assets/work/yard-slab-extension-sm.webp" data-full="assets/work/yard-slab-extension.webp" width="720" height="540" alt="Yard slab extension: concrete slab poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Slab</small>Yard slab extension</figcaption></figure>
+      <figure class="gitem rv" data-c="slab"><img src="assets/work/house-pad-slab-sm.webp" data-full="assets/work/house-pad-slab.webp" width="720" height="960" alt="Slab pour: concrete slab poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Slab</small>Slab pour</figcaption></figure>
+      <figure class="gitem rv" data-c="slab"><img src="assets/work/slab-under-oaks-sm.webp" data-full="assets/work/slab-under-oaks.webp" width="720" height="960" alt="Slab under the oaks: concrete slab poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Slab</small>Slab under the oaks</figcaption></figure>
+      <figure class="gitem rv" data-c="slab"><img src="assets/work/wooded-lot-slab-sm.webp" data-full="assets/work/wooded-lot-slab.webp" width="720" height="970" alt="Slab, wooded lot: concrete slab poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Slab</small>Slab, wooded lot</figcaption></figure>
+      <figure class="gitem rv" data-c="comm"><img src="assets/work/warehouse-floor-sm.webp" data-full="assets/work/warehouse-floor.webp" width="720" height="535" alt="Warehouse floor: commercial concrete poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Commercial</small>Warehouse floor</figcaption></figure>
+      <figure class="gitem rv" data-c="comm"><img src="assets/work/commercial-drive-roll-up-door-sm.webp" data-full="assets/work/commercial-drive-roll-up-door.webp" width="720" height="960" alt="Commercial drive and walkway: commercial concrete poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Commercial</small>Commercial drive and walkway</figcaption></figure>
+      <figure class="gitem rv" data-c="comm crew"><img src="assets/work/roll-up-door-pad-sm.webp" data-full="assets/work/roll-up-door-pad.webp" width="720" height="960" alt="Roll-up door pad: commercial concrete poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Commercial</small>Roll-up door pad</figcaption></figure>
+      <figure class="gitem rv" data-c="comm"><img src="assets/work/raised-commercial-slab-sm.webp" data-full="assets/work/raised-commercial-slab.webp" width="720" height="970" alt="Raised commercial slab: commercial concrete poured by Ladson Concrete in North Florida" loading="lazy" decoding="async"><figcaption><small>Commercial</small>Raised commercial slab</figcaption></figure>
     </div>
+    <div class="gmore"><button class="btn btn-dark" type="button" id="gMore">Show all projects</button></div>
   </div>
 </section>
 
@@ -674,7 +733,7 @@ input,textarea,select{-webkit-user-select:text;user-select:text}
     <h2 class="h2 rv d1">From first call to <em>fresh pour</em>.</h2>
     <p class="lead rv d2">No runaround. Here's exactly what happens when you reach out.</p>
     <div class="steps">
-      <div class="step rv"><div class="n">01</div><h3>Call or text</h3><p>Tell us what you need. Send a photo and we can usually give you a ballpark right away.</p></div>
+      <div class="step rv"><div class="n">01</div><h3>Call or text</h3><p>Tell us what you need. Send a few photos so Gage can see the job before he comes out.</p></div>
       <div class="step rv d1"><div class="n">02</div><h3>Free estimate</h3><p>Gage comes out, measures up and gives you a clear, written price. No pressure.</p></div>
       <div class="step rv d2"><div class="n">03</div><h3>Prep &amp; grade</h3><p>We clear, compact, form and grade the site properly so water drains and the slab stays put.</p></div>
       <div class="step rv d3"><div class="n">04</div><h3>Pour &amp; finish</h3><p>Smooth, precise pour with clean edges, control joints and the finish you picked.</p></div>
@@ -750,7 +809,7 @@ input,textarea,select{-webkit-user-select:text;user-select:text}
       <a class="btn btn-teal rv d3" href="sms:+19046315038" style="margin-top:28px">Text Gage a Question</a>
     </div>
     <div class="rv d1">
-      <div class="qa"><button aria-expanded="false">How much does a concrete driveway cost?<span class="pm"></span></button><div class="ans"><p>It depends on the size, whether old concrete needs to be torn out, how much site prep it takes and the finish you want. That's why every estimate is free and done on site, so you get a real price, not a guess. Text us a photo and we can often give you a ballpark the same day.</p></div></div>
+      <div class="qa"><button aria-expanded="false">How much does a concrete driveway cost?<span class="pm"></span></button><div class="ans"><p>It depends on the size, whether old concrete needs to be torn out, how much site prep it takes and the finish you want. That's why every estimate is free and done on site, so you get a real price, not a guess. Send us a few photos with your request so Gage knows what he is walking into.</p></div></div>
       <div class="qa"><button aria-expanded="false">Do you tear out and replace old driveways?<span class="pm"></span></button><div class="ans"><p>Yes. We handle full driveway replacements, from breaking out and hauling off the old concrete to grading and pouring the new one. We also do driveway extensions if you just need more room.</p></div></div>
       <div class="qa"><button aria-expanded="false">How soon can I walk or drive on new concrete?<span class="pm"></span></button><div class="ans"><p>Foot traffic is usually fine after a day or two, and most driveways are ready for cars after about a week. Weather and the mix make a difference, so we'll give you the exact timing for your job before we leave.</p></div></div>
       <div class="qa"><button aria-expanded="false">Do you do stamped or decorative concrete?<span class="pm"></span></button><div class="ans"><p>We sure do. Stamped patios give you the look of stone or pavers with a lot less upkeep. We also do border finishes on walkways and driveways for a custom look.</p></div></div>
@@ -769,7 +828,7 @@ input,textarea,select{-webkit-user-select:text;user-select:text}
       <p class="lead rv d2">Fill out the form and Gage will reach out to set up your free on-site estimate. Prefer to talk? Call or text anytime.</p>
       <div class="cways">
         <a class="cway rv" href="tel:+19046315038"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></span><span><small>Call now</small><b>(904) 631-5038</b></span></a>
-        <a class="cway rv d1" href="sms:+19046315038"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span><span><small>Text a photo of your project</small><b>Fastest way to a ballpark</b></span></a>
+        <a class="cway rv d1" href="sms:+19046315038"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span><span><small>Text photos of your project</small><b>Helps Gage see the job</b></span></a>
         <a class="cway rv d2" href="mailto:ladsonconcrete@gmail.com"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg></span><span><small>Email</small><b>ladsonconcrete@gmail.com</b></span></a>
       </div>
     </div>
@@ -795,11 +854,19 @@ input,textarea,select{-webkit-user-select:text;user-select:text}
           <div class="field"><label for="f-town">Town or ZIP</label><input id="f-town" name="town"></div>
           <div class="field"><label for="f-when">When do you need it?</label><select id="f-when" name="when"><option>As soon as possible</option><option>In the next month</option><option>1 to 3 months</option><option>Just getting prices</option></select></div>
         </div>
+        <div class="field"><label for="f-email">Email <span class="opt">(optional)</span></label><input id="f-email" name="email" type="email" autocomplete="email"></div>
         <div class="field"><label for="f-msg">Tell us about the job</label><textarea id="f-msg" name="msg" rows="3" placeholder="e.g. Replace a 2-car driveway and add an extension on the left side"></textarea></div>
+        <div class="field"><label>Photos of the area <span class="opt">(optional, up to 5)</span></label>
+          <label class="upload" for="f-photos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg><span><b>Add photos</b><small>Snap the driveway, yard or slab area so Gage can see the job</small></span></label>
+          <input id="f-photos" name="photos" type="file" accept="image/*" multiple class="vh">
+          <div class="thumbs" id="fThumbs"></div>
+        </div>
+        <input type="text" name="company" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <p class="ferr" id="fErr" hidden></p>
         <button class="btn btn-teal" type="submit" style="width:100%">Send My Request</button>
         <div class="qfoot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Your info goes straight to Gage. Never shared.</div>
       </form>
-      <div class="done" id="mainDone" hidden><div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div><h3>Request received!</h3><p>Thanks for reaching out. Gage will call or text you shortly to set up your free estimate.</p></div>
+      <div class="done" id="mainDone" hidden><div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div><h3>Request received!</h3><p>Thanks for reaching out. Gage will look over your details and call or text you to set up your free on-site estimate.</p></div>
     </div>
   </div>
 </section>
@@ -859,6 +926,10 @@ document.documentElement.classList.add('js');
     const step=t=>{const p=Math.min(1,(t-t0)/1600),v=Math.round(to*(1-Math.pow(1-p,3)));el.textContent=v.toLocaleString('en-US');if(p<1)requestAnimationFrame(step)};requestAnimationFrame(step);cio.unobserve(el)}),{threshold:.6});
   document.querySelectorAll('.count').forEach(el=>cio.observe(el));
 
+  // send a lead to Gage (api/lead emails it to him)
+  const sendLead=d=>fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)}).then(r=>{if(!r.ok)throw new Error('send failed');return r.json()});
+  const alert0=btn=>{let e=btn.parentElement.querySelector('.ferr');if(!e){e=document.createElement('p');e.className='ferr';btn.before(e)}e.innerHTML='Could not send. Please call or text Gage at <a href="tel:+19046315038"><b>(904) 631-5038</b></a>.'};
+
   // hero quote
   const qc=document.getElementById('hero-quote'),panes=qc.querySelectorAll('.qpane'),bars=qc.querySelectorAll('.qsteps i');let data={};
   const go=s=>{panes.forEach(p=>p.classList.toggle('on',p.dataset.step==String(s)));const n=s==='done'?3:s;bars.forEach((b,i)=>b.classList.toggle('on',i<n))};
@@ -867,7 +938,10 @@ document.documentElement.classList.add('js');
   qc.querySelectorAll('.qback').forEach(b=>b.addEventListener('click',()=>{const cur=[...panes].find(p=>p.classList.contains('on')).dataset.step;go(cur==3?2:1)}));
   qc.querySelector('form').addEventListener('submit',e=>{e.preventDefault();const n=qc.querySelector('#hq-name'),p=qc.querySelector('#hq-phone');
     if(!n.value.trim()){n.focus();n.style.borderColor='#d9534f';return}if(p.value.replace(/\D/g,'').length<10){p.focus();p.style.borderColor='#d9534f';return}
-    qc.querySelector('.qname').textContent=', '+n.value.trim().split(' ')[0];go('done')});
+    const f=qc.querySelector('form'),btn=f.querySelector('button[type=submit]');btn.disabled=true;btn.textContent='Sending...';
+    sendLead({source:'Hero form',type:data.type||'Not picked',size:f.size.value,town:f.town.value,msg:f.msg.value,name:n.value,phone:p.value,company:f.company.value})
+      .then(()=>{qc.querySelector('.qname').textContent=', '+n.value.trim().split(' ')[0];go('done')})
+      .catch(()=>{btn.disabled=false;btn.textContent='Send My Request';alert0(btn)})});
 
   // service card -> preselect type
   document.querySelectorAll('[data-pick]').forEach(a=>a.addEventListener('click',()=>{const r=document.querySelector('#typeChips input[value="'+a.dataset.pick+'"]');if(r)r.checked=true}));
@@ -876,18 +950,33 @@ document.documentElement.classList.add('js');
   const mf=document.getElementById('mainForm');
   mf.addEventListener('submit',e=>{e.preventDefault();const n=mf.querySelector('#f-name'),p=mf.querySelector('#f-phone');
     if(!n.value.trim()){n.focus();n.style.borderColor='#d9534f';return}if(p.value.replace(/\D/g,'').length<10){p.focus();p.style.borderColor='#d9534f';return}
-    mf.hidden=true;document.getElementById('mainDone').hidden=false});
+    const btn=mf.querySelector('button[type=submit]'),err=document.getElementById('fErr');err.hidden=true;btn.disabled=true;btn.textContent=photos.length?'Uploading photos...':'Sending...';
+    sendLead({source:'Contact form',type:(mf.querySelector('input[name=type]:checked')||{}).value,name:n.value,phone:p.value,town:mf.town.value,when:mf.when.value,email:mf.email.value,msg:mf.msg.value,company:mf.company.value,photos:photos.map(x=>({name:x.name,data:x.data}))})
+      .then(()=>{mf.hidden=true;document.getElementById('mainDone').hidden=false})
+      .catch(()=>{btn.disabled=false;btn.textContent='Send My Request';err.innerHTML='Something went wrong sending your request. Please call or text Gage at <a href="tel:+19046315038"><b>(904) 631-5038</b></a>.';err.hidden=false})});
+
+  // photo upload: shrink on the phone before sending
+  const photos=[],pin=document.getElementById('f-photos'),thumbs=document.getElementById('fThumbs');
+  const shrink=file=>new Promise((res,rej)=>{const url=URL.createObjectURL(file),im=new Image();im.onload=()=>{const k=Math.min(1,1600/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);c.getContext('2d').drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(url);res(c.toDataURL('image/jpeg',.78))};im.onerror=rej;im.src=url});
+  const drawThumbs=()=>{thumbs.innerHTML='';photos.forEach((ph,i)=>{const sp=document.createElement('span');sp.innerHTML='<img alt=""><button type="button" aria-label="Remove photo">✕</button>';sp.querySelector('img').src=ph.data;sp.querySelector('button').onclick=()=>{photos.splice(i,1);drawThumbs()};thumbs.appendChild(sp)})};
+  pin.addEventListener('change',async()=>{for(const f of [...pin.files]){if(photos.length>=5)break;if(!f.type.startsWith('image/'))continue;try{photos.push({name:f.name.replace(/\.[^.]+$/,'')+'.jpg',data:await shrink(f)})}catch(e){}}pin.value='';drawThumbs()});
   document.querySelectorAll('input').forEach(i=>i.addEventListener('input',()=>i.style.borderColor=''));
 
-  // gallery filter
-  const items=[...document.querySelectorAll('.gitem')];
-  document.querySelectorAll('.filters button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.filters button').forEach(x=>x.classList.remove('on'));b.classList.add('on');const f=b.dataset.f;
-    items.forEach(it=>{const show=f==='all'||it.dataset.c.split(' ').includes(f);it.classList.toggle('hide',!show);if(show)it.classList.add('in')})}));
+  // gallery filter + show more
+  const items=[...document.querySelectorAll('.gitem')],gMore=document.getElementById('gMore'),LIMIT=12;let expanded=false,cur='all';
+  const fbtns=[...document.querySelectorAll('#work .filters button')];
+  fbtns.forEach(b=>{const f=b.dataset.f,n=f==='all'?items.length:items.filter(it=>it.dataset.c.split(' ').includes(f)).length;b.insertAdjacentHTML('beforeend','<span class="n">'+n+'</span>')});
+  const applyG=()=>{let shown=0;const match=items.filter(it=>cur==='all'||it.dataset.c.split(' ').includes(cur));
+    items.forEach(it=>{const m=match.includes(it);it.classList.toggle('hide',!m);const later=m&&!expanded&&shown>=LIMIT;it.classList.toggle('later',later);if(m&&!later){shown++;it.classList.add('in')}});
+    gMore.parentElement.hidden=expanded||match.length<=LIMIT;gMore.textContent='Show all '+match.length+' projects'};
+  fbtns.forEach(b=>b.addEventListener('click',()=>{fbtns.forEach(x=>x.classList.remove('on'));b.classList.add('on');cur=b.dataset.f;expanded=false;applyG()}));
+  gMore.addEventListener('click',()=>{expanded=true;applyG()});
+  applyG();
 
   // lightbox
   const lb=document.querySelector('.lb'),lbi=lb.querySelector('img'),cap=lb.querySelector('.lb-cap');let idx=0,vis=[];
-  const show=i=>{idx=(i+vis.length)%vis.length;const f=vis[idx];lbi.src=f.querySelector('img').src;lbi.alt=f.querySelector('img').alt;cap.textContent=f.querySelector('figcaption').textContent};
-  items.forEach(it=>it.addEventListener('click',()=>{vis=items.filter(x=>!x.classList.contains('hide'));show(vis.indexOf(it));lb.classList.add('on');document.body.style.overflow='hidden'}));
+  const show=i=>{idx=(i+vis.length)%vis.length;const f=vis[idx];const im=f.querySelector('img');lbi.src=im.dataset.full||im.src;lbi.alt=f.querySelector('img').alt;cap.textContent=f.querySelector('figcaption').lastChild.textContent+'  ('+(idx+1)+' of '+vis.length+')'};
+  items.forEach(it=>it.addEventListener('click',()=>{vis=items.filter(x=>!x.classList.contains('hide')&&!x.classList.contains('later'));show(vis.indexOf(it));lb.classList.add('on');document.body.style.overflow='hidden'}));
   const close=()=>{lb.classList.remove('on');document.body.style.overflow=''};
   lb.querySelector('.close').onclick=close;lb.querySelector('.prev').onclick=()=>show(idx-1);lb.querySelector('.next').onclick=()=>show(idx+1);
   lb.addEventListener('click',e=>{if(e.target===lb)close()});
