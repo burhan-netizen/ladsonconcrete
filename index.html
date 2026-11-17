@@ -593,6 +593,7 @@ input,textarea,select{-webkit-user-select:text;user-select:text}
         <div class="qpane" data-step="3">
           <div class="field"><label for="hq-name">Your name</label><input id="hq-name" name="name" autocomplete="name" placeholder="First name" required></div>
           <div class="field"><label for="hq-phone">Best number to reach you</label><input id="hq-phone" name="phone" type="tel" autocomplete="tel" placeholder="(904) 000-0000" required></div>
+          <div class="field"><label for="hq-email">Email <span class="opt">(optional, for your confirmation)</span></label><input id="hq-email" name="email" type="email" autocomplete="email" placeholder="you@example.com"></div>
           <button type="submit" class="btn btn-teal">Send My Request</button>
           <button type="button" class="qback">Back</button>
         </div>
@@ -995,7 +996,7 @@ document.documentElement.classList.add('js');
   qc.querySelector('form').addEventListener('submit',e=>{e.preventDefault();const n=qc.querySelector('#hq-name'),p=qc.querySelector('#hq-phone');
     if(!n.value.trim()){n.focus();n.style.borderColor='#d9534f';return}if(p.value.replace(/\D/g,'').length<10){p.focus();p.style.borderColor='#d9534f';return}
     const f=qc.querySelector('form'),btn=f.querySelector('button[type=submit]');btn.disabled=true;btn.textContent='Sending...';
-    const ho=f.other.value.trim();sendLead({source:'Hero form',type:data.type==='Other'?('Other'+(ho?': '+ho:'')):(data.type||'Not picked'),size:f.size.value,town:f.town.value,msg:f.msg.value,name:n.value,phone:p.value,company:f.company.value})
+    const ho=f.other.value.trim();sendLead({source:'Hero form',type:data.type==='Other'?('Other'+(ho?': '+ho:'')):(data.type||'Not picked'),size:f.size.value,town:f.town.value,msg:f.msg.value,name:n.value,phone:p.value,email:f.email.value,company:f.company.value})
       .then(()=>{qc.querySelector('.qname').textContent=', '+n.value.trim().split(' ')[0];go('done')})
       .catch(()=>{btn.disabled=false;btn.textContent='Send My Request';alert0(btn)})});
 
