@@ -20,4 +20,4 @@ Allow: /
 User-agent: Applebot-Extended
 Allow: /
 
-Sitemap: https://ladsonconcrete.vercel.app/sitemap.xml
+Sitemap: https://www.ladsonconcretefl.com/sitemap.xml
