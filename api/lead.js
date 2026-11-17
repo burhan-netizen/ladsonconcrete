@@ -22,9 +22,11 @@ function autoReply({ name, email, d, photoCount }) {
   const replyTo = process.env.AUTOREPLY_REPLY_TO || 'ladsonconcrete@gmail.com';
 
   const first = name.split(/\s+/)[0];
-  const project = clip(d.type, 40);
+  const project = clip(d.type, 80);
   const town = clip(d.town, 80);
-  const job = project ? `your ${project.toLowerCase()}` + (town ? ` in ${town}` : '') : 'your project' + (town ? ` in ${town}` : '');
+  const isOther = /^other\b/i.test(project) || /^not picked$/i.test(project);
+  const what = !project || isOther ? 'project' : project.toLowerCase();
+  const job = `your ${what}` + (town ? ` in ${town}` : '');
 
   const summary = [
     ['Name', name],
@@ -133,7 +135,7 @@ module.exports = async (req, res) => {
   if (!name || phone.replace(/\D/g, '').length < 10) return res.status(400).json({ ok: false, error: 'Name and phone required' });
 
   const rows = [
-    ['Project', clip(d.type, 40)],
+    ['Project', clip(d.type, 80)],
     ['Rough size', clip(d.size, 60)],
     ['Where', clip(d.town, 80)],
     ['When', clip(d.when, 60)],
